@@ -22,14 +22,7 @@ func calculate_column(from, to int, dc *gg.Context, p *perlin.Perlin, wg *sync.W
 	defer wg.Done()
 	for x := 0; x < size; x++ {
 		for y := from; y <= to; y++ {
-			//m.Lock()
 			gradient[int(x)][int(y)] = math.Abs(p.Noise2D(float64(x)/10, float64(y)/10))
-			//	fmt.Printf("%0.0d\t%0.0d\t%0.4f\n", x, y, gradient)
-			//m.Lock()
-			//dc.SetRGB(gradient, gradient, gradient)
-			//dc.DrawPoint(float64(x), float64(y), 1.)
-			//dc.Fill()
-			//m.Unlock()
 		}
 	}
 }
@@ -38,7 +31,6 @@ func main() {
 	var waitGroup sync.WaitGroup
 	dc := gg.NewContext(size, size)
 	p := perlin.NewPerlin(alpha, beta, n, seed)
-	//var m sync.Mutex
 	thread_size := (int(size) / int(thread_n))
 	var x_from int = 0
 	var x_to int = thread_size
